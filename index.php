@@ -27,60 +27,55 @@
 					</span>
 					<div class="price">
 						<?
-							$price = array();
-							foreach ($item["tarifs"] as $item_tariff) {
-								$price_item = $item_tariff["price"] / $item_tariff["pay_period"];
-								array_push($price, $price_item);
-							}
+							$price  = array_column($item["tarifs"], "price");
+							$period = array_column($item["tarifs"], "pay_period");
 						?>
-						<?=min($price)?> - <?=max($price)?> &#8381;/мес
+						<?=max($price)/max($period)?> - <?=min($price)/min($period)?> &#8381;/мес
 					</div>
-					<? if (isset($item["free_options"])):?>
+					<? if (isset($item["free_options"])) {?>
 						<div class="item-desc">
 							<?foreach ($item["free_options"] as $item_options) {?>
 								<p><?=$item_options;?></p>
 							<?}?>
 						</div>
-					<?endif;?>
+					<?};?>
 					<a href="<?=$item["link"]?>" class="item-link"class="item-link" target="_blank">узнать подробнее на сайте www.sknt.ru</a>
 				</div>
-				
 			<?}?>
 		</div>
 		<div class="btn-back hidden">
 			<span></span>
 		</div>
 		<div class="items">
-			<? foreach ($tariff as $item) { ?>
+			<?function period($month) {
+				$pay_period = $month;
+				echo $pay_period;
+				if ($pay_period == 1) {
+					echo ' месяц';
+				} elseif ($pay_period == 3) {
+					echo ' месяца';
+				} elseif ($pay_period == 6 || $pay_period == 12) {
+					echo ' месяцев';
+				}
+			};
+			foreach ($tariff as $item) { ?>
 				<?
 					sort($item["tarifs"]);
 					$i = 0;
 					foreach ($item["tarifs"] as $item_period) {?>
 					<div class="item period hidden" data-id="<?=$item_period['ID'];?>" data-title="<?=$item['title'];?>">
 						<span class="title">
-							<?
-								$pay_period = $item_period["pay_period"];
-								echo $pay_period;
-							?>
-							<? if ($pay_period == 1):?>
-								месяц
-							<?endif;?>
-							<? if ($pay_period == 3):?>
-								месяца
-							<?endif;?>
-							<? if ($pay_period == 6 || $pay_period == 12):?>
-								месяцев
-							<?endif;?>
+							<? period($item_period["pay_period"]); ?>
 						</span>
 						<div class="price">
-							<?=$item_period["price"] / $pay_period?> &#8381;/мес
+							<?=$item_period["price"] / $item_period["pay_period"]?> &#8381;/мес
 						</div>
 						<div class="item-desc">
 							<p>разовый платеж - <?=$item_period["price"];?> &#8381;</p>
 							<? $sale = ($item["tarifs"][0]["price"] - ($item_period["price"] / $item_period["pay_period"])) * $item_period["pay_period"];?>
-							<?if ($sale != 0):?>
+							<?if ($sale != 0) {?>
 								<p>скидка - <?=$sale?> &#8381;</p>
-							<?endif;?>
+							<?};?>
 						</div>
 					</div>
 				<? $i++;
@@ -95,16 +90,8 @@
 						<div class="price">
 							<p>
 								<?$pay_period = $item_period["pay_period"];?>
-								Период оплаты - <?=$pay_period?>
-								<? if ($pay_period == 1):?>
-									месяц
-								<?endif;?>
-								<? if ($pay_period == 3):?>
-									месяца
-								<?endif;?>
-								<? if ($pay_period == 6 || $pay_period == 12):?>
-									месяцев
-								<?endif;?>
+								Период оплаты - 
+								<? period($item_period["pay_period"]); ?>
 							</p>
 							<p>
 								<?=$item_period["price"] / $pay_period?> &#8381;/мес
@@ -116,8 +103,12 @@
 						</div>
 						<div class="item-time">
 							вступит в силу - сегодня <br>
-							<?$time = date("d.m.y",$item_period["new_payday"]);?>
-							активно до - <?=$time?>
+							<?
+								$timezone_offset = date("Z",(int)($item_period["new_payday"]));
+								$timestamp = date("U",(int)$item_period["new_payday"]);
+								$new_payday = date("d.m.Y", $timestamp + $timezone_offset);
+							?>
+							активно до - <?=$new_payday;?>
 						</div>
 						<div class="item-bot">
 							<a href="#" class="btn">Выбрать</a>

@@ -11,6 +11,10 @@ body {
 	font-size: 16px;
 }
 
+p {
+	margin: 0;
+}
+
 .content {
 	width: 100%;
 	max-width: 1600px;
@@ -30,17 +34,7 @@ body {
 	padding: 10px 0 10px 15px;
 	border: 1px solid #d5d5d8;
 	background-color: #fff;
-	box-shadow: 0 0 5px rgba(0,0,0,0);
 	cursor: pointer;
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
-}
-
-.item:hover {
-	box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
 .item:before {
@@ -58,11 +52,6 @@ body {
 	-moz-transform: translate(0,-50%) rotate(-45deg);
 	-ms-transform: translate(0,-50%) rotate(-45deg);
 	-o-transform: translate(0,-50%) rotate(-45deg);
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
 	box-sizing: border-box;
 }
 
@@ -75,16 +64,8 @@ body {
 	width: calc(100% - 20px);
 }
 
-.detail:before {
-	display: none;
-}
-
 .period:before {
 	top: calc(50% + 25px);
-}
-
-.detail:hover {
-	box-shadow: 0 0 5px rgba(0,0,0,0);
 }
 
 .tariff {
@@ -111,13 +92,20 @@ body {
 	font-weight: 500;
 }
 
-.item:nth-child(5) .speed,
 .item:nth-child(2) .speed {
 	background-color: #0075d9;
 }
 
 .item:nth-child(3) .speed {
-	background-color: #e74807;
+	background-color: #EE4700;
+}
+
+.item:nth-child(4) .speed {
+	background-color: #14aabb;
+}
+
+.item:nth-child(5) .speed {
+	background-color: #ef0700;
 }
 
 .price {
@@ -126,16 +114,8 @@ body {
 	margin: 10px 0;
 }
 
-.price p {
-	margin: 0;
-}
-
 .item-desc {
 	margin-bottom: 10px;
-}
-
-.item-desc  p {
-	margin: 0;
 }
 
 .item-link {
@@ -149,11 +129,6 @@ body {
 	text-decoration: none;
 	border-top: 1px solid #d5d5d8;
 	color: #007aff;
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
 }
 
 .item-link:hover {
@@ -173,11 +148,6 @@ body {
 	text-align: center;
 	color: #fff;
 	text-decoration: none;
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
 }
 
 .btn:hover {
@@ -197,11 +167,6 @@ body {
 	border-top: none;
 	background-color: #fff;
 	box-shadow: 0 0 5px rgba(0,0,0,0);
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-ms-transition: all 0.3s;
-	-o-transition: all 0.3s;
 }
 
 .btn-back:hover {
@@ -232,6 +197,7 @@ body {
 	color: #afabab;
 }
 
+.detail:before,
 .hidden {
 	display: none;
 }
